@@ -10,7 +10,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="user")
+@Table(name="users")
 public class User {
 
 	
@@ -26,7 +26,7 @@ public class User {
 	
 	
 	@OneToMany(mappedBy = "user")
-	private List<Task> task;
+	private List<Task> tasks;
 
 
 	public User() {
@@ -34,13 +34,13 @@ public class User {
 	}
 
 
-	public User(Long id, String name, String email, String password, List<Task> task) {
+	public User(Long id, String name, String email, String password, List<Task> tasks) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.task = task;
+		this.tasks = tasks;
 	}
 
 
@@ -84,17 +84,16 @@ public class User {
 	}
 
 
-	public List<Task> getTask() {
-		return task;
+	public List<Task> getTasks() {
+		return tasks;
 	}
 
 
-	public void setTask(List<Task> task) {
-		this.task = task;
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
 	}
-	
-	
-	
+
+
 	
 	
 	
