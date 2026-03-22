@@ -1,5 +1,7 @@
 package com.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +34,7 @@ public class Task {
 	
 	
 	@ManyToOne
+	@JsonBackReference
 	@JoinColumn(name = "user_id")
 	private User user;
 
