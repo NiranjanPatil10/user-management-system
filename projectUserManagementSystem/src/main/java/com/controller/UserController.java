@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.model.User;
+import com.service.UserRoleService;
 import com.service.UserService;
 
 
@@ -29,6 +30,8 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private UserRoleService userRoleService ;
 	
 	
 	@PostMapping("/register")
@@ -91,9 +94,14 @@ public class UserController {
 	
 	
 	
-    @GetMapping("/getAll")
-    public ResponseEntity<List<User>> getAll() {
+    @GetMapping("/getAll/{adminId}")
+    public ResponseEntity<List<User>> getAll(@PathVariable Long adminId) {
 
+    	
+    	 if (!userRoleService.isAdmin(adminId)) {
+    	        throw new RuntimeException("Access Denied");
+    	    }
+    	
         List<User> users = userService.getAllEmployees();
 
         return new ResponseEntity<>(users, HttpStatus.OK);
@@ -103,8 +111,14 @@ public class UserController {
     
     
     
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id) {
+    @DeleteMapping("/{id}/{adminId}")
+    public ResponseEntity<String> delete(@PathVariable Long id, @PathVariable Long adminId) {
+    	
+    	
+
+        if (!userRoleService.isAdmin(adminId)) {
+            throw new RuntimeException("Access Denied");
+        }
 
         userService.deleteEmployee(id);
 

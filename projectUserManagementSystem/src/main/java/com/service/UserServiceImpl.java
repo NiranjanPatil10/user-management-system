@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dao.TaskRepository;
 import com.dao.UserRepository;
+import com.dao.UserRoleRepository;
 import com.exception.DuplicateResourceException;
 import com.exception.ResourceNotFoundException;
 import com.model.User;
@@ -22,6 +24,11 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepo;
 	
+	@Autowired
+	private UserRoleRepository userroleRepo;
+	
+	@Autowired
+	private TaskRepository taskRepo;
 	
 	
 	
@@ -135,6 +142,15 @@ public class UserServiceImpl implements UserService {
 	public void deleteEmployee(Long id) {
 
 		   User user = getProfile(id);
+		   
+		   
+		   
+		   userroleRepo.deleteAll(userroleRepo.findByUser(user));
+
+		  
+		    taskRepo.deleteAll(taskRepo.findByUser(user));
+		   
+		   
 	        userRepo.delete(user);
 		
 	}

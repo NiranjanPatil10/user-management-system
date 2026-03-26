@@ -19,9 +19,13 @@ public class UserRoleController {
 
     
     @PostMapping("/assign")
-    public ResponseEntity<UserRole> assignRoleToUser(@RequestParam Long userId, @RequestParam Long roleId) {
-        UserRole userRole = userRoleService.assignRoleToUser(userId, roleId);
-        return new ResponseEntity<>(userRole, HttpStatus.CREATED);
+    public ResponseEntity<UserRole> assignRoleToUser(@RequestParam Long userId, @RequestParam Long roleId, @RequestParam Long adminId) {
+    	
+    	 if (!userRoleService.isAdmin(adminId)) {
+    	        throw new RuntimeException("Access Denied");
+    	    }
+
+    	    return new ResponseEntity<>(userRoleService.assignRoleToUser(userId, roleId),HttpStatus.CREATED);
     }
 
     

@@ -64,4 +64,21 @@ public class UserRoleServiceImpl implements UserRoleService {
 		return userroleRepo.findByUser(user);
 	}
 
+
+
+
+	@Override
+	public boolean isAdmin(Long userId) {
+
+
+		 User user = userRepo.findById(userId)
+		            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+		 
+		 
+		 List<UserRole> roles = userroleRepo.findByUser(user);
+		
+		 
+		return roles.stream().anyMatch(r -> r.getRole().getName().equals("ADMIN"));
+	}
+
 }
