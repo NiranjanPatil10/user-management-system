@@ -12,6 +12,8 @@ import com.service.TaskService;
 import com.service.UserRoleService;
 import com.service.UserService;
 
+
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/tasks")
 public class TaskController {

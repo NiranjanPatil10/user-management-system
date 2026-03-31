@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import com.model.UserRole;
 import com.service.UserRoleService;
 
+
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/user-roles")
 public class UserRoleController {
